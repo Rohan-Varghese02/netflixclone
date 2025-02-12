@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/movie_recommendation_model.dart';
 import 'package:netflix/models/search_model.dart';
+import 'package:netflix/screens/movie_screen/movie_detailed_screen.dart';
 import 'package:netflix/services/api_services.dart';
 
 class SearchPage extends StatefulWidget {
@@ -50,17 +51,33 @@ class _SearchPageState extends State<SearchPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SearchBar(
-                    textStyle: WidgetStateProperty.all(TextStyle(color: Colors.white)),
-                    backgroundColor: WidgetStateProperty.all(const Color.fromARGB(255, 44, 44, 44)),
+                    textStyle:
+                        WidgetStateProperty.all(TextStyle(color: Colors.white)),
+                    backgroundColor: WidgetStateProperty.all(
+                        const Color.fromARGB(255, 44, 44, 44)),
                     controller: searchController,
-                    leading: Icon(Icons.search,color: Colors.grey,),
+                    leading: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
                     trailing: [
-                      IconButton(
-                        icon: Icon(Icons.cancel,color: Colors.grey,),
-                        onPressed: () {
-                          searchController.clear();
-                        },
-                      ),
+                      searchController.text.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.cancel,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                searchController.clear();
+                              },
+                            )
+                          : IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.cancel,
+                                color: Colors.black,
+                              ),
+                            ),
                     ],
                     onChanged: (value) {
                       if (value.isEmpty) {
@@ -70,7 +87,6 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
-           
                 searchController.text.isEmpty
                     ? FutureBuilder(
                         future: popularMovies,
@@ -97,25 +113,52 @@ class _SearchPageState extends State<SearchPage> {
                                     itemCount: data!.length,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return Container(
-                                        height: 150,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Image.network(
-                                                  '${imageUrl}${data[index].posterPath}'),
-                                                  SizedBox(width: 20,),
-                                                  SizedBox( width: 200,
-                                                    child: Text(data[index].title,style: TextStyle(color: const Color.fromARGB(255, 205, 204, 204)),maxLines: 2, overflow: TextOverflow.ellipsis,),),
-                                                  Icon(Icons.play_circle_outline,color: const Color.fromARGB(255, 205, 204, 204),size: 40,)
-                                            ],
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                      MovieDetailedScreen(movieId: data[index].id,)));
+                                        },
+                                        child: Container(
+                                          height: 150,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Image.network(
+                                                    '${imageUrl}${data[index].posterPath}'),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 200,
+                                                  child: Text(
+                                                    data[index].title,
+                                                    style: TextStyle(
+                                                        color: const Color
+                                                            .fromARGB(255, 205,
+                                                            204, 204)),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.play_circle_outline,
+                                                  color: const Color.fromARGB(
+                                                      255, 205, 204, 204),
+                                                  size: 40,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );

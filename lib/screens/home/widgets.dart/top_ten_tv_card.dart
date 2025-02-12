@@ -6,11 +6,11 @@ import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/upcoming_tv_model.dart';
 
 class TopTenTvCard extends StatelessWidget {
-  final Future<UpcomingTvModel> future;
-  final String headLineText;
   const TopTenTvCard({super.key,required this.future, required this.headLineText});
 
- 
+  final Future<UpcomingTvModel> future;
+  final String headLineText;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(future: future, builder: (context,snapshot){

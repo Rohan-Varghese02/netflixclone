@@ -5,8 +5,9 @@ import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/tv_series_model.dart';
 
 class CustomCarousel extends StatelessWidget {
-  final TvSeriesModel data;
   const CustomCarousel({super.key, required this.data});
+
+  final TvSeriesModel data;
 
   @override
   Widget build(BuildContext context) {

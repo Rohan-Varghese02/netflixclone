@@ -19,11 +19,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<UpcomingMovieModel>upcomingFuture;
   late Future<UpcomingMovieModel>toptenFuture;
+  late Future<UpcomingMovieModel>upcomingFuture;
   late Future<UpcomingTvModel>toptentvFuture;
-  late Future<TvSeriesModel> topRatedFuture;
   ApiServices apiServices = ApiServices();
+  late Future<TvSeriesModel> topRatedFuture;
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   topRatedFuture = apiServices.getTvSeries();
 
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

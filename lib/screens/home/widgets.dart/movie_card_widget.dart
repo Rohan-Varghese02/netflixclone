@@ -5,9 +5,10 @@ import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/upcoming_model.dart';
 
 class MovieCardWidget extends StatelessWidget {
+  const MovieCardWidget({super.key, required this.future, required this.headLineText});
+
   final Future<UpcomingMovieModel> future;
   final String headLineText;
-  const MovieCardWidget({super.key, required this.future, required this.headLineText});
 
   @override
   Widget build(BuildContext context) {
@@ -43,5 +44,4 @@ class MovieCardWidget extends StatelessWidget {
     });
     
   }
-  
 }

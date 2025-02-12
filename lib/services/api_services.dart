@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:netflix/common/utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:netflix/models/movie_detail_model.dart';
 import 'package:netflix/models/movie_recommendation_model.dart';
 import 'package:netflix/models/search_model.dart';
 import 'package:netflix/models/tv_series_model.dart';
@@ -85,5 +86,18 @@ class ApiServices {
       return MovieRecommendationModel.fromJson(jsonDecode(response.body));
     }
     throw Exception('Failed to Load Carsouel data');
+  }
+
+
+   Future<MovieDetailModel> getMovieDetails(int movieId) async {
+    endPont = 'movie/$movieId';
+    final url = '$baseUrl$endPont$key';
+    print('search url is $url');
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      log('Successfully added Search data');
+      return MovieDetailModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Failed to Load Movie data');
   }
 }
