@@ -51,7 +51,7 @@ class TopTenTvCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20)
                     ),
-                    child: Image.network('${imageUrl}${data[index].posterPath}'),
+                    child: Image.network('$imageUrl${data[index].posterPath}'),
                                     ),
                   ),
                 

@@ -100,4 +100,18 @@ class ApiServices {
     }
     throw Exception('Failed to Load Movie data');
   }
+
+  Future<MovieRecommendationModel> getRecommendations(int movieId) async {
+    endPont = 'movie/$movieId/recommendations';
+    final url = '$baseUrl$endPont$key';
+    print('search url is $url');
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      log('Successfully added Search data');
+      return MovieRecommendationModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Failed to Load Movie data');
+  }
+
+
 }

@@ -119,7 +119,9 @@ class _SearchPageState extends State<SearchPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (ctx) =>
-                                                      MovieDetailedScreen(movieId: data[index].id,)));
+                                                      MovieDetailedScreen(
+                                                        movieId: data[index].id,
+                                                      )));
                                         },
                                         child: Container(
                                           height: 150,
@@ -134,7 +136,7 @@ class _SearchPageState extends State<SearchPage> {
                                             child: Row(
                                               children: [
                                                 Image.network(
-                                                    '${imageUrl}${data[index].posterPath}'),
+                                                    '$imageUrl${data[index].posterPath}'),
                                                 SizedBox(
                                                   width: 20,
                                                 ),
@@ -185,16 +187,26 @@ class _SearchPageState extends State<SearchPage> {
                               //childAspectRatio: 1.5 / 2
                             ),
                             itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl:
-                                        '$imageUrl${searchModel!.results[index].backdropPath}',
-                                    height: 203,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  // Text(searchModel!.results[index].originalTitle,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 14,color: Colors.white),)
-                                ],
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (ctx) => MovieDetailedScreen(
+                                              movieId: searchModel!
+                                                  .results[index].id)));
+                                },
+                                child: Column(
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          '$imageUrl${searchModel!.results[index].posterPath}',
+                                      height: 203,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    // Text(searchModel!.results[index].originalTitle,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 14,color: Colors.white),)
+                                  ],
+                                ),
                               );
                             })
               ],

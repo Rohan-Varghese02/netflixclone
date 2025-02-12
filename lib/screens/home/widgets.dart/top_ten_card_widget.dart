@@ -4,6 +4,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/upcoming_model.dart';
+import 'package:netflix/screens/movie_screen/movie_detailed_screen.dart';
 
 class TopTenCardWidget extends StatelessWidget {
   const TopTenCardWidget({super.key, required this.future, required this.headLineText});
@@ -46,13 +47,24 @@ class TopTenCardWidget extends StatelessWidget {
                 ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
-                    child: Container(
-                    padding: const EdgeInsets.only(left: 30, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20)
+                    child: InkWell(
+                      onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                      MovieDetailedScreen(
+                                                        movieId: data[index].id,
+                                                      )));
+                                        },
+                      child: Container(
+                      padding: const EdgeInsets.only(left: 30, right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Image.network('$imageUrl${data[index].posterPath}'),
+                                      ),
                     ),
-                    child: Image.network('${imageUrl}${data[index].posterPath}'),
-                                    ),
                   ),
                 
                 ]
